@@ -72,9 +72,9 @@ jobs:
 
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
-      run: terraform plan -no-color -var "aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+      run: terraform plan -no-color -var aws_account_id="${{ secrets.AWS_ACCOUNT_ID }}"
       continue-on-error: true
 
     - name: Terraform Apply
       if: github.event_name == 'push'
-      run: terraform apply -no-color -auto-approve -var "aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+      run: terraform apply -no-color -auto-approve -var aws_account_id="${{ secrets.AWS_ACCOUNT_ID }}"
