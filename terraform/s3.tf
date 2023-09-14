@@ -1,4 +1,4 @@
-module "s3_bucket" {
+module "s3_dj_library" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.15.1"
 
