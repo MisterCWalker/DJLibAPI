@@ -44,6 +44,22 @@ resource "aws_iam_role_policy_attachment" "dj_library_lambda_role_attach" {
   role       = aws_iam_role.dj_library_lambda_role.name
 }
 
+resource "aws_iam_policy" "github_actions_policy" {
+  name        = "GitHubActionsAccess"
+  description = "Policy for GitHubActions operations."
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action   = ["*"],
+        Resource = ["*"],
+        Effect   = "Allow"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role" "github_actions" {
   name = "GitHubActionsRole"
 
@@ -71,6 +87,6 @@ resource "aws_iam_role" "github_actions" {
 
 resource "aws_iam_policy_attachment" "github_actions_admin_access_role_attach" {
   name       = "GitHubActionsAdminAccessAttachment"
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = aws_iam_policy.github_actions_policy.arn
   roles      = [aws_iam_role.github_actions.name]
 }
