@@ -46,6 +46,7 @@ resource "aws_iam_role_policy_attachment" "dj_library_lambda_role_attach" {
 
 resource "aws_iam_role" "github_actions" {
   name = "GitHubActionsRole"
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -66,4 +67,10 @@ resource "aws_iam_role" "github_actions" {
       }
     ]
   })
+}
+
+resource "aws_iam_policy_attachment" "github_actions_admin_access_role_attach" {
+  name       = "GitHubActionsAdminAccessAttachment"
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  roles      = [aws_iam_role.github_actions.name]
 }
