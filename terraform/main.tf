@@ -12,5 +12,3 @@ terraform {
     region = "eu-west-2"
   }
 }
-
-# opakwdpokawd
