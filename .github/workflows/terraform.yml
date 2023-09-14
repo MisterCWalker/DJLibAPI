@@ -29,6 +29,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ./terraform
 
     steps:
     - name: Checkout
@@ -37,7 +38,7 @@ jobs:
     # Read .terrafrom-version file
     - name: Read .terraform-version
       id: read-tf-version
-      run: echo "version=$(cat terraform/.terraform-version)" >> $GITHUB_OUTPUT
+      run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
